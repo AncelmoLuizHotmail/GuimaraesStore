@@ -26,9 +26,37 @@ Console.WriteLine();
 
 var pedido = new Pedido(cliente.Id, StatusPedidoEnum.Aberto);
 
-pedido.AdicionarItem(listaProdutos[0], 2);
-pedido.AdicionarItem(listaProdutos[1], 1);
+Console.WriteLine("Adicionar itens ao pedido");
 
+char resposta;
+
+do
+{
+    Console.Write("Informe o código do produto: ");
+    var codigoProduto = int.Parse(Console.ReadLine());
+    var produtoSelecionado = listaProdutos.FirstOrDefault(p => p.Id == codigoProduto);
+
+    Console.Write("Informe a quantidade: ");
+    var quantidade = int.Parse(Console.ReadLine());
+
+    if (produtoSelecionado == null || quantidade <= 0)
+    {
+        Console.WriteLine("Produto inválido ou quantidade inválida. Tente novamente.");
+    }
+    else
+    {
+        pedido.AdicionarItem(produtoSelecionado, quantidade);
+    }
+
+    Console.WriteLine("Deseja adicionar mais itens? (S/N)");
+    resposta = char.Parse(Console.ReadLine());
+
+    Console.WriteLine();
+
+} while (resposta == 'S' || resposta == 's');
+
+
+Console.WriteLine();
 Console.WriteLine($"Pedido do cliente: {cliente.Nome} - Status: {pedido.Status} - Data Cadastro: {pedido.DataCadastro}");
 Console.WriteLine();
 
@@ -38,6 +66,33 @@ foreach (var item in pedido.Itens)
     var produto = listaProdutos.FirstOrDefault(p => p.Id == item.ProdutoId);
     Console.WriteLine($"Produto: {produto.Nome} - Quantidade: {item.Quantidade} - Total Item: R$ {item.ValorarItem()}");
 }
+
+Console.WriteLine();
+Console.WriteLine($"Valor Total do Pedido: R$ {pedido.ValorTotal} ");
+
+Console.WriteLine();
+Console.WriteLine("Deseja remover algum item do pedido? (S/N)");
+var respostaRemover = char.Parse(Console.ReadLine());
+
+while (respostaRemover == 'S' || respostaRemover == 's')
+{
+    Console.Write("Digite o código do produto que deseja remover: ");
+    var codigoProdutoRemover = int.Parse(Console.ReadLine());
+    var itemRemover = pedido.Itens.FirstOrDefault(i => i.ProdutoId == codigoProdutoRemover);
+
+    pedido.RemoverItem(itemRemover);
+
+    Console.WriteLine("Deseja remover mais algum item do pedido? (S/N)");
+    respostaRemover = char.Parse(Console.ReadLine());
+}
+
+Console.WriteLine($"Itens do Pedido:");
+foreach (var item in pedido.Itens)
+{
+    var produto = listaProdutos.FirstOrDefault(p => p.Id == item.ProdutoId);
+    Console.WriteLine($"Produto: {produto.Nome} - Quantidade: {item.Quantidade} - Total Item: R$ {item.ValorarItem()}");
+}
+
 Console.WriteLine();
 Console.WriteLine($"Valor Total do Pedido: R$ {pedido.ValorTotal} ");
 

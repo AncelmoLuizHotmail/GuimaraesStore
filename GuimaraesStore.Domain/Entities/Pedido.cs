@@ -36,6 +36,18 @@ namespace GuimaraesStore.Domain.Entities
             CalcularValorTotal();
         }
 
+        public void RemoverItem(ItemPedido itemPedido)
+        {
+            var itemExistente = Itens.FirstOrDefault(ip => ip.Produto.Id == itemPedido.Produto.Id);
+
+            if (itemExistente == null)
+                throw new InvalidOperationException("O item não pertence ao pedido!");
+
+            Itens.Remove(itemExistente);
+
+            CalcularValorTotal();
+        }
+
         private void CalcularValorTotal()
         {
             ValorTotal = Itens.Sum(i => i.Quantidade * i.Produto.Preco);
