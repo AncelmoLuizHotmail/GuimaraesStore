@@ -4,12 +4,14 @@ namespace GuimaraesStore.Domain.Entities
 {
     public class Pedido : BaseEntity
     {
-        public Pedido(int clienteId, StatusPedidoEnum status)
+        public Pedido(Cliente cliente, StatusPedidoEnum status)
         {
-            ClienteId = clienteId;
+            ClienteId = cliente.Id;
             Status = status;
             DataCadastro = DateTime.Now;
+            
             Itens = new List<ItemPedido>();
+            Cliente = cliente;
         }
 
 

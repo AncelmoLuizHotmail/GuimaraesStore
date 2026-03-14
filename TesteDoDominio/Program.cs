@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using GuimaraesStore.Domain.Entities;
 using GuimaraesStore.Domain.Enums;
+using TesteDoDominio;
 
 Console.WriteLine("Bem vindo ao GuimaraesStore");
 
@@ -11,10 +12,7 @@ listaProdutos.Add(new Produto(2, "Samsung S20", "telefone samsung", 1500m, TipoP
 
 Console.WriteLine();
 
-foreach (var item in listaProdutos)
-{
-    Console.WriteLine($"Id: {item.Id} - Nome: {item.Nome} - Descrição: {item.Descricao} - Preço: {item.Preco} - Tipo Produto: {item.TipoProduto} - Quantidade Estoque: {item.QuantidadeEstoque}");
-}
+Impressao.ImprimirProduto(listaProdutos);
 
 Console.WriteLine();
 
@@ -24,7 +22,7 @@ Console.WriteLine($"Nome: {cliente.Nome} ");
 
 Console.WriteLine();
 
-var pedido = new Pedido(cliente.Id, StatusPedidoEnum.Aberto);
+var pedido = new Pedido(cliente, StatusPedidoEnum.Aberto);
 
 Console.WriteLine("Adicionar itens ao pedido");
 
@@ -60,15 +58,7 @@ Console.WriteLine();
 Console.WriteLine($"Pedido do cliente: {cliente.Nome} - Status: {pedido.Status} - Data Cadastro: {pedido.DataCadastro}");
 Console.WriteLine();
 
-Console.WriteLine($"Itens do Pedido:");
-foreach (var item in pedido.Itens)
-{
-    var produto = listaProdutos.FirstOrDefault(p => p.Id == item.ProdutoId);
-    Console.WriteLine($"Produto: {produto.Nome} - Quantidade: {item.Quantidade} - Total Item: R$ {item.ValorarItem()}");
-}
-
-Console.WriteLine();
-Console.WriteLine($"Valor Total do Pedido: R$ {pedido.ValorTotal} ");
+Impressao.ImprimirPedido(pedido);
 
 Console.WriteLine();
 Console.WriteLine("Deseja remover algum item do pedido? (S/N)");
@@ -86,18 +76,32 @@ while (respostaRemover == 'S' || respostaRemover == 's')
     respostaRemover = char.Parse(Console.ReadLine());
 }
 
-Console.WriteLine($"Itens do Pedido:");
-foreach (var item in pedido.Itens)
-{
-    var produto = listaProdutos.FirstOrDefault(p => p.Id == item.ProdutoId);
-    Console.WriteLine($"Produto: {produto.Nome} - Quantidade: {item.Quantidade} - Total Item: R$ {item.ValorarItem()}");
-}
-
-Console.WriteLine();
-Console.WriteLine($"Valor Total do Pedido: R$ {pedido.ValorTotal} ");
+Impressao.ImprimirPedido(pedido);
 
 //FECHAR O PEDIDO
+Console.WriteLine();
+Console.WriteLine("Deseja Fechar o pedido? (S/N)");
+var respostaFechar = char.Parse(Console.ReadLine());
+
+if (respostaFechar == 'S' || respostaFechar == 's')
+{
+    pedido.TrocarStatus(StatusPedidoEnum.Fechado);
+    Console.WriteLine($"Pedido fechado. Status atual: {pedido.Status}");
+    Console.WriteLine($"Valor total do pedido: R$ {pedido.ValorTotal}");
+}
 
 //PAGAR O PEDIDO
+Console.WriteLine($"Cliente: {pedido.Cliente.Nome} pagar o valor de R$ {pedido.ValorTotal} ");
+if (pedido.Status == StatusPedidoEnum.Fechado)
+{
+    pedido.TrocarStatus(StatusPedidoEnum.Pago);
+    Console.WriteLine($"Pedido pago. Status atual: {pedido.Status}");
 
-//BAIXAR O ESTOQUE DOS PRODUTOS DO PEDIDO
+    foreach (var item in pedido.Itens)
+    {
+        item.Produto.DebitarEstoque(item.Quantidade);
+    }
+}
+
+Impressao.ImprimirProduto(listaProdutos);
+
