@@ -2,6 +2,7 @@
 {
     public class Cliente : BaseEntity
     {
+        protected Cliente() { }
         public Cliente(int id, string nome, string cpf, DateTime dataNascimento, string email, string telefone)
         {
             Id = id;

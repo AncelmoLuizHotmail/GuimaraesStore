@@ -5,7 +5,7 @@ namespace GuimaraesStore.Domain.Entities
     public class Produto : BaseEntity
     {
         //EF
-        public Produto() { }
+        protected Produto() { }
 
         public Produto(int id,
             string nome,
