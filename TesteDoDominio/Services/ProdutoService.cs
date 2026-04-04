@@ -5,19 +5,27 @@ namespace TesteDoDominio.Services
 {
     public class ProdutoService
     {
-        public List<Produto> CriarProdutos()
+        private List<Produto> _produtos;
+
+        public void CriarProdutos()
         {
-            return DadosFakeFactory.CriarProdutos();
+            _produtos = DadosFakeFactory.CriarProdutos();
         }
 
-        public void ExibirProdutos(List<Produto> produtos)
+        public void ExibirProdutos()
         {
+            Console.Clear();
             Console.WriteLine("Lista de Produtos");
-            foreach (var produto in produtos)
+            foreach (var produto in _produtos)
             {
                 Console.WriteLine($"Código: {produto.Id} - Nome: {produto.Nome} - Preço: {produto.Preco:C} - Estoque: {produto.QuantidadeEstoque}");
             }
             Console.WriteLine();
+        }
+
+        public Produto BuscarPorId(int id)
+        {
+            return _produtos.FirstOrDefault(p => p.Id == id);
         }
     }
 }
