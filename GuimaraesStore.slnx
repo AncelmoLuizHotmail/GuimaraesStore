@@ -2,6 +2,9 @@
   <Folder Name="/Domain/">
     <Project Path="GuimaraesStore.Domain/GuimaraesStore.Domain.csproj" Id="44fc147e-4540-4bad-8bd3-c73ded2530ce" />
   </Folder>
+  <Folder Name="/Infra/">
+    <Project Path="GuimaraesStore.Infra/GuimaraesStore.Infra.csproj" Id="5ad09df0-44d9-4527-9ad2-72ef8f6e901e" />
+  </Folder>
   <Folder Name="/TesteConsole/">
     <Project Path="TesteDoDominio/TesteDoDominio.csproj" Id="61e60f5e-1a8b-46c9-9476-ad757f146523" />
   </Folder>
