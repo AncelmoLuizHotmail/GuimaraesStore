@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GuimaraesStore.Domain\GuimaraesStore.Domain.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GuimaraesStore.Services\GuimaraesStore.Services.csproj" />
   </ItemGroup>
 
 </Project>

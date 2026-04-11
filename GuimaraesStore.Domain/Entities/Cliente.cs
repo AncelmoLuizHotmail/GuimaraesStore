@@ -3,19 +3,16 @@
     public class Cliente : BaseEntity
     {
         protected Cliente() { }
-        public Cliente(int id, string nome, string cpf, DateTime dataNascimento, string email, string telefone)
+        public Cliente(string nome, string cpf, string email, string telefone)
         {
-            Id = id;
             Nome = nome;
             Cpf = cpf;
-            DataNascimento = dataNascimento;
             Email = email;
             Telefone = telefone;
         }
 
         public string Nome { get; private set; }
         public string Cpf { get; private set; }
-        public DateTime DataNascimento { get; private set; }
         public string Email { get; private set; }
         public string Telefone { get; private set; }
 

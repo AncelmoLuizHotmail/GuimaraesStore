@@ -1,4 +1,5 @@
 ﻿using GuimaraesStore.Domain.Entities;
+using GuimaraesStore.Infra.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace GuimaraesStore.Infra.Contexto
@@ -17,6 +18,11 @@ namespace GuimaraesStore.Infra.Contexto
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ClienteMap());
+            modelBuilder.ApplyConfiguration(new ProdutoMap());
+            modelBuilder.ApplyConfiguration(new PedidoMap());
+            modelBuilder.ApplyConfiguration(new ItemPedidoMap());
+
             base.OnModelCreating(modelBuilder);
         }
     }

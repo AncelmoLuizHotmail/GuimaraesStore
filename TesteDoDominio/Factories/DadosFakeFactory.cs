@@ -15,10 +15,6 @@ namespace TesteDoDominio.Factories
             return listaProdutos;
         }
 
-        public static Cliente CriarCliente() 
-        { 
-            var cliente = new Cliente(1, "João Silva", "123.456.789-00", new DateTime(1990, 5, 20), "teste@teste.com", "69 9999-8888");
-            return cliente;
-        }
+      
     }
 }

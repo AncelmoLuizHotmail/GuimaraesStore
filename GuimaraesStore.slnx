@@ -5,6 +5,9 @@
   <Folder Name="/Infra/">
     <Project Path="GuimaraesStore.Infra/GuimaraesStore.Infra.csproj" Id="5ad09df0-44d9-4527-9ad2-72ef8f6e901e" />
   </Folder>
+  <Folder Name="/Services/">
+    <Project Path="GuimaraesStore.Services/GuimaraesStore.Services.csproj" Id="8fa25383-b964-4c6a-a7ce-e2e048b8c09c" />
+  </Folder>
   <Folder Name="/TesteConsole/">
     <Project Path="TesteDoDominio/TesteDoDominio.csproj" Id="61e60f5e-1a8b-46c9-9476-ad757f146523" />
   </Folder>
